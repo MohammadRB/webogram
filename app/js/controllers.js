@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Webogram v0.6.0 - messaging web application for MTProto
  * https://github.com/zhukov/webogram
  * Copyright (C) 2014 Igor Zhukov <igor.beatle@gmail.com>
@@ -694,6 +694,11 @@ angular.module('myApp.controllers', ['myApp.i18n'])
     $scope.foundPeers = []
     $scope.foundMessages = []
 
+        // Custom
+        $scope.peerTypes = { all: 0, user: 1, channel: 2, chat: 3};
+        $scope.peerType = $scope.peerTypes.all;
+        $scope.peerFilter = { peerData: {} };
+
     if ($scope.search === undefined) {
       $scope.search = {}
     }
@@ -711,6 +716,27 @@ angular.module('myApp.controllers', ['myApp.i18n'])
     var peersInDialogs = {}
     var typingTimeouts = {}
     var contactsShown
+
+        // Custom
+        $scope.showAllPeers = function() {
+            $scope.peerType = $scope.peerTypes.all;
+            $scope.peerFilter.peerData = {};
+        }
+
+        $scope.showUserPeers = function () {
+            $scope.peerType = $scope.peerTypes.user;
+            $scope.peerFilter.peerData._ = "user";
+        }
+
+        $scope.showChannelPeers = function () {
+            $scope.peerType = $scope.peerTypes.channel;
+            $scope.peerFilter.peerData._ = "channel";
+        }
+
+        $scope.showChatPeers = function () {
+            $scope.peerType = $scope.peerTypes.chat;
+            $scope.peerFilter.peerData._ = "chat";
+        }
 
     $scope.$on('dialogs_need_more', function () {
       // console.log('on need more')
